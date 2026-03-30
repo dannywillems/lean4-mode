@@ -88,7 +88,7 @@ FILE-NAME."
   (let* ((cc compile-command)
 	 (dd default-directory)
 	 (use-lake (lean4-lake-find-dir))
-	 (default-directory (if use-lake (lean4-lake-find-dir) dd))
+	 (default-directory (or use-lake dd))
          (target-file-name
           (or
            (buffer-file-name)
