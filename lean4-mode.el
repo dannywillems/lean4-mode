@@ -106,6 +106,42 @@ FILE-NAME."
   (interactive)
   (lean4-execute))
 
+(defun lean4--run-on-text (text)
+  "Write TEXT to a temp .lean file, run lean on it, show output."
+  (let* ((tmpfile (make-temp-file "lean4-region-" nil ".lean"))
+         (use-lake (lean4-lake-find-dir))
+         (default-directory (or use-lake default-directory))
+         (cc compile-command)
+         (lean-cmd
+          (lean4-compile-string
+           (when use-lake
+             (shell-quote-argument
+              (expand-file-name
+               (lean4-get-executable lean4-lake-name))))
+           (shell-quote-argument
+            (expand-file-name
+             (lean4-get-executable lean4-executable-name)))
+           ""
+           (shell-quote-argument tmpfile))))
+    (write-region text nil tmpfile nil 'silent)
+    (compile lean-cmd)
+    (setq compile-command cc)))
+
+(defun lean4-execute-region (beg end)
+  "Run Lean on the selected region and show full output.
+The region is written to a temp file and executed with lean."
+  (interactive "r")
+  (lean4--run-on-text
+   (buffer-substring-no-properties beg end)))
+
+(defun lean4-execute-up-to-point ()
+  "Run Lean on everything from buffer start to point.
+Useful for checking a file incrementally, seeing all output
+up to the cursor position."
+  (interactive)
+  (lean4--run-on-text
+   (buffer-substring-no-properties (point-min) (point))))
+
 (defun lean4-refresh-file-dependencies ()
   "Refresh the file dependencies.
 
@@ -141,6 +177,8 @@ file, recompiling, and reloading all imports."
   ;; (local-set-key lean4-keybinding-lean4-message-boxes-toggle #'lean4-message-boxes-toggle)
   (local-set-key lean4-keybinding-lake-build                #'lean4-lake-build)
   (local-set-key lean4-keybinding-refresh-file-dependencies #'lean4-refresh-file-dependencies)
+  (local-set-key (kbd "C-c C-r")                           #'lean4-execute-region)
+  (local-set-key (kbd "C-c C-e")                           #'lean4-execute-up-to-point)
   ;; This only works as a mouse binding due to the event, so it is not abstracted
   ;; to avoid user confusion.
   ;; (local-set-key (kbd "<mouse-3>")                         #'lean4-right-click-show-menu)
