@@ -214,5 +214,35 @@
         (inherited-entries (car lean4-font-lock-defaults)))
     `(,(-concat new-entries inherited-entries))))
 
+;; Imenu support
+(defconst lean4-imenu-generic-expression
+  `(("Definition"
+     ,(concat "^\\s-*\\(?:noncomputable\\s-+\\|unsafe\\s-+\\|partial\\s-+\\|private\\s-+\\|protected\\s-+\\)*"
+              "\\(?:def\\|abbrev\\)\\s-+\\([^ \t\n({:]+\\)")
+     1)
+    ("Theorem"
+     ,(concat "^\\s-*\\(?:noncomputable\\s-+\\|unsafe\\s-+\\|private\\s-+\\|protected\\s-+\\)*"
+              "\\(?:theorem\\|lemma\\)\\s-+\\([^ \t\n({:]+\\)")
+     1)
+    ("Structure"
+     ,(concat "^\\s-*\\(?:private\\s-+\\|protected\\s-+\\)*"
+              "\\(?:structure\\|class\\)\\s-+\\([^ \t\n({:]+\\)")
+     1)
+    ("Inductive"
+     ,(concat "^\\s-*\\(?:private\\s-+\\|protected\\s-+\\)*"
+              "inductive\\s-+\\([^ \t\n({:]+\\)")
+     1)
+    ("Instance"
+     ,(concat "^\\s-*\\(?:noncomputable\\s-+\\|private\\s-+\\|protected\\s-+\\)*"
+              "instance\\s-+\\([^ \t\n({:]+\\)")
+     1)
+    ("Namespace"
+     "^\\s-*namespace\\s-+\\([^ \t\n]+\\)"
+     1)
+    ("Section"
+     "^\\s-*section\\s-+\\([^ \t\n]+\\)"
+     1))
+  "Imenu patterns for Lean 4 definitions.")
+
 (provide 'lean4-syntax)
 ;;; lean4-syntax.el ends here

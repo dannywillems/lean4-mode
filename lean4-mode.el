@@ -226,6 +226,8 @@ of the parent project."
   (set (make-local-variable 'comment-use-syntax) t)
   (set (make-local-variable 'font-lock-defaults) lean4-font-lock-defaults)
   (set (make-local-variable 'indent-tabs-mode) nil)
+  (set (make-local-variable 'imenu-generic-expression)
+       lean4-imenu-generic-expression)
   (set 'compilation-mode-font-lock-keywords '())
   (require 'lean4-input)
   (set-input-method "Lean")
