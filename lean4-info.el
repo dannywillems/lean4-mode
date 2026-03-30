@@ -40,11 +40,10 @@
   "Major mode for Lean4-Mode Info Buffer."
   :syntax-table lean4-syntax-table
   :group 'lean4
-  (set (make-local-variable 'font-lock-defaults) lean4-info-font-lock-defaults)
-  (set (make-local-variable 'indent-tabs-mode) nil)
-  (set 'compilation-mode-font-lock-keywords '())
-  (set (make-local-variable 'lisp-indent-function)
-       'common-lisp-indent-function))
+  (setq-local font-lock-defaults lean4-info-font-lock-defaults)
+  (setq-local indent-tabs-mode nil)
+  (setq-local compilation-mode-font-lock-keywords '())
+  (setq-local lisp-indent-function 'common-lisp-indent-function))
 
 (defun lean4-ensure-info-buffer (buffer)
   "Create BUFFER if it does not exist.
