@@ -82,8 +82,8 @@ The buffer is supposed to be the *Lean Goal* buffer."
 
 (defconst lean4-info-buffer-name "*Lean Goal*")
 
-(defvar lean4-goals nil)
-(defvar lean4-term-goal nil)
+(defvar-local lean4-goals nil)
+(defvar-local lean4-term-goal nil)
 
 (lsp-defun lean4-diagnostic-full-start-line ((&lean:Diagnostic :full-range (&Range :start (&Position :line))))
   line)
