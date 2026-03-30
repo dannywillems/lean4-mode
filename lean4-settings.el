@@ -70,7 +70,7 @@
 
 (defcustom lean4-lake-name lean4-default-lake-name
   "Name of lake executable."
-  :group 'lake
+  :group 'lean4
   :type 'string)
 
 (defcustom lean4-memory-limit 1024
