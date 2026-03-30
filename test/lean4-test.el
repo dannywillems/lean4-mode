@@ -14,6 +14,7 @@
 ;; We load individual modules that don't require lsp-mode.
 (require 'lean4-settings)
 (require 'lean4-lake)
+(require 'lean4-info)
 (require 'lean4-fringe)
 
 ;;; Bug #1: lean4-goals and lean4-term-goal should be buffer-local
