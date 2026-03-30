@@ -243,5 +243,27 @@
      1))
   "Imenu patterns for Lean 4 definitions.")
 
+;; Outline mode support
+(defconst lean4-outline-regexp
+  (concat "\\s-*\\(?:"
+          "namespace\\|section\\|end"
+          "\\|\\(?:noncomputable\\s-+\\|unsafe\\s-+\\|partial\\s-+\\|"
+          "private\\s-+\\|protected\\s-+\\)*"
+          "\\(?:def\\|abbrev\\|theorem\\|lemma\\|"
+          "structure\\|class\\|inductive\\|instance\\)"
+          "\\)\\s-")
+  "Regexp matching Lean 4 outline headings.")
+
+(defun lean4-outline-level ()
+  "Return the outline level for the current line.
+Namespace and section get level 1, end gets level 1,
+all declarations get level 2."
+  (save-excursion
+    (beginning-of-line)
+    (cond
+     ((looking-at "\\s-*\\(?:namespace\\|section\\)\\s-") 1)
+     ((looking-at "\\s-*end\\s-") 1)
+     (t 2))))
+
 (provide 'lean4-syntax)
 ;;; lean4-syntax.el ends here
