@@ -21,6 +21,7 @@
 
 ;;; Code:
 
+(require 'project)
 (require 'lean4-util)
 (require 'lean4-settings)
 
@@ -47,6 +48,20 @@
   (interactive)
   (let ((default-directory (file-name-as-directory (lean4-lake-find-dir-safe))))
     (compile (concat (shell-quote-argument (lean4-get-executable lean4-lake-name)) " build"))))
+
+;;; project.el integration
+
+(cl-defmethod project-root ((project (head lean4)))
+  "Return the root directory of a Lean 4 PROJECT."
+  (cdr project))
+
+(defun lean4-lake-project-find (dir)
+  "Return a Lean 4 project for DIR if a lakefile is found."
+  (when-let ((root (locate-dominating-file dir #'lean4-root-dir-p)))
+    (cons 'lean4 (file-name-as-directory
+                  (expand-file-name root)))))
+
+(add-hook 'project-find-functions #'lean4-lake-project-find)
 
 (provide 'lean4-lake)
 ;;; lean4-lake.el ends here
