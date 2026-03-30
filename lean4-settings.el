@@ -91,7 +91,7 @@ It is approximately the maximum number of memory allocations in thousands."
   :type '(list string))
 
 (defcustom lean4-delete-trailing-whitespace nil
-  "Automatically delete trailing shitespace.
+  "Automatically delete trailing whitespace.
 Set this variable to true to automatically delete trailing
 whitespace when a buffer is loaded from a file or when it is
 written."
