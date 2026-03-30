@@ -28,7 +28,7 @@
 (defun lean4-setup-rootdir ()
   "Search for lean executable in variable `exec-path'.
 Try to find an executable named `lean4-executable-name' in variable `exec-path'.
-On succsess, return path to the directory with this executable."
+On success, return path to the directory with this executable."
   (let ((root (executable-find lean4-executable-name)))
     (when root
       (setq lean4-rootdir (file-name-directory

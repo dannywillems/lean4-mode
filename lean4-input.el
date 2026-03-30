@@ -195,7 +195,7 @@ All the translation strings are possible translations
 of the given key sequence; if there is more than one you can choose
 between them using the arrow keys.
 
-These translation pairs are included first, before thoseinherited
+These translation pairs are included first, before those inherited
 from other input methods."
   :group 'lean4-input
   :set 'lean4-input-incorporate-changed-setting
